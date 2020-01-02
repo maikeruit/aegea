@@ -1,5 +1,7 @@
 [TOC]
 
+
+
 # Aegea docker, настройка и запуск
 
 > В данном репозитории находится Aegea Версия 2.8, сборка 3386
@@ -40,6 +42,7 @@ git clone https://github.com/smart-leo/aegea.git
 
 ```bash
 sudo chown -R www-data:www-data /opt/aegea/blog
+sudo chmod -R 755 /opt/aegea/blog
 ```
 
 ### Этап 2. Подготовка файла конфигурации nginx

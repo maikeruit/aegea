@@ -10,8 +10,8 @@ services:
     container_name: nginx
     restart: unless-stopped
     volumes:
-      - ./blog:/var/www/html:cached
-      - ./nginx/log:/var/log/nginx:cached
+      - ./blog:/var/www/html:delegated
+      - ./nginx/log:/var/log/nginx:delegated
       - ./nginx/conf.d:/etc/nginx/conf.d:cached
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./certbot/conf:/etc/letsencrypt:cached
@@ -47,7 +47,7 @@ services:
     container_name: php-fpm
     restart: unless-stopped
     volumes:
-      - ./blog:/var/www/html:cached
+      - ./blog:/var/www/html:delegated
 
   #
   # MySql Container
@@ -60,7 +60,7 @@ services:
       - MYSQL_ROOT_PASSWORD=mysql_password
       - MYSQL_DATABASE=aegea
     volumes:
-      - ./mysql/data:/var/lib/mysql:cached
+      - ./mysql/data:/var/lib/mysql:delegated
 
 networks:
   default:

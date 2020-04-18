@@ -46,7 +46,7 @@ sudo chmod -R 755 /opt/aegea/blog
 Перейдите в папку с конфигурации сайта:
 
 ```bash
-cd /opt/aegea/nginx/sites-enabled
+cd /opt/aegea/nginx/conf.d
 ```
 
 После этого необходимо заменить в нескольких местах имя домена на ваш:

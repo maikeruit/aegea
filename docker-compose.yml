@@ -39,8 +39,12 @@ services:
   #
   # PHP-FPM Container
   #
-  php-fpm:
-    build: ./php-fpm
+  php-fpm:    
+    build:
+      args:
+        user: sammy
+        uid: 1000
+      context: ./php-fpm
     container_name: php-fpm
     restart: unless-stopped
     volumes:

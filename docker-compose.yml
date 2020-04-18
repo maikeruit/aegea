@@ -7,16 +7,16 @@ services:
     container_name: nginx
     restart: unless-stopped
     volumes:
-      - ./blog:/var/www/html
-      - ./nginx/log:/var/log/nginx
-      - ./nginx/sites-enabled:/etc/nginx/sites-enabled
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./blog:/var/www/html:cached
+      - ./nginx/log:/var/log/nginx:cached
+      - ./nginx/conf.d:/etc/nginx/conf.d:cached
+      - ./certbot/conf:/etc/letsencrypt:cached
+      - ./certbot/www:/var/www/certbot:cached
     depends_on:
       - php-fpm
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
 
   certbot:
@@ -24,8 +24,8 @@ services:
     container_name: certbot
     restart: unless-stopped
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt:cached
+      - ./certbot/www:/var/www/certbot:cached
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
   php-fpm:
@@ -33,7 +33,7 @@ services:
     container_name: php-fpm
     restart: unless-stopped
     volumes:
-      - ./blog:/var/www/html
+      - ./blog:/var/www/html:cached
 
   mysql:
     image: mysql:5.6
@@ -43,4 +43,4 @@ services:
       - MYSQL_ROOT_PASSWORD=mysql_password
       - MYSQL_DATABASE=aegea
     volumes:
-      - ./mysql/data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql:cached

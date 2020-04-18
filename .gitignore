@@ -1,2 +1,12 @@
+# Main
 **/.DS_Store
 .dnconfig
+
+# Nginx
+nginx/log
+
+# MySql
+mysql/data
+
+# CertBot
+certbot

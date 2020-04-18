@@ -21,6 +21,8 @@ services:
       - "80:80"
       - "443:443"
     command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
+    networks: 
+      - backend
 
   #
   # CertBot Container
@@ -43,6 +45,8 @@ services:
     restart: unless-stopped
     volumes:
       - ./blog:/var/www/html:cached
+    networks: 
+      - backend
 
   #
   # MySql Container
@@ -56,3 +60,9 @@ services:
       - MYSQL_DATABASE=aegea
     volumes:
       - ./mysql/data:/var/lib/mysql:cached
+    networks: 
+      - backend
+
+networks:
+  backend:
+    driver: bridge
